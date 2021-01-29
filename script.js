@@ -1,17 +1,27 @@
 const dino = document.querySelector(".dino");
 const background = document.querySelector('.background');
 const score = document.querySelector('.score');
+const start = document.querySelector('.start');
 let isJumping = false;
+let hasStarted = false;
 let position = 0;
 let scoreCounter = 0;
 
-function handleKeyUp(e) {
+function handleKeyUpJump(e) {
   if (e.keyCode === 32) {
     if (!isJumping) {
       jump();
     }
 
     console.log("Pressionou Espaço");
+  }
+}
+
+function handleKeyUpStart(e) {
+  if (e.keyCode === 13) {
+    if (!hasStarted) {
+      createCactus();
+    } 
   }
 }
 
@@ -39,6 +49,8 @@ function jump() {
 }
 
 function createCactus() {
+  start.remove();
+  hasStarted = true;
   const cactus = document.createElement('div');
   let cactusPosition = 1000;
   let randomTimer = Math.random() * 7000;
@@ -56,7 +68,7 @@ function createCactus() {
     } else if (cactusPosition > 140 && cactusPosition < 250 && position < 60) {
       clearInterval(leftInterval);
       document.body.innerHTML = '<h1 class="game-over">Fim de Jogo!</h1><br><h2 class="final-score">Pontuação Final: ' + scoreCounter + '</h2>';
-      console.log("game over");
+      console.log("game over");      
     } else {
       cactusPosition -= 10;
       cactus.style.left = cactusPosition + 'px';
@@ -66,5 +78,6 @@ function createCactus() {
   setTimeout(createCactus, randomTimer);
 } 
 
-createCactus();
-document.addEventListener("keydown", handleKeyUp);
+document.addEventListener("keydown", handleKeyUpStart);
+
+document.addEventListener("keydown", handleKeyUpJump);

@@ -40,7 +40,8 @@ body {
   font-family: 'Potta One', cursive;
 }
 
-.final-score {
+.final-score,
+.start {
   text-align: center;
   color: teal;
   font-size: 40px;
